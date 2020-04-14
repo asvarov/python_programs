@@ -8,7 +8,7 @@ def re_subs(from_string, to_string, source, file_zones='zones'):
         to_string  - текст на который нужно заменять
         source  - папка где расположены файлы в которых нужно заменять текст
         file_zones - имя файла в котором хранится список файлов которые нужно обработать (по умолчанию 'zones')"""
-    list_ = []
+    list_, list2_ = [], []
     try:
         with open(file_zones) as f:
             list_ = f.read().splitlines()
@@ -18,11 +18,11 @@ def re_subs(from_string, to_string, source, file_zones='zones'):
     for i in list_:
         try:
             path_read_file = os.path.join(source, i)
-            read_data = open(path_read_file).read()
-            path_write_file = open(path_read_file, 'w', encoding='utf-8')
-            path_write_file.write(re.sub(from_string, to_string, read_data))
-            path_write_file.close()
-        except FileNotFoundError as error:
+            with open(path_read_file) as read_data:
+                list2_ = read_data.read()
+                path_write_file = open(path_read_file, 'w', encoding='utf-8')
+                path_write_file.write(re.sub(from_string, to_string, list2_))
+        except FileNotFoundError:
             print('Error: No such file or directory:', os.path.join(source, i))
 
 
