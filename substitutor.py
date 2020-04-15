@@ -24,6 +24,11 @@ def re_subs(from_string, to_string, source, file_zones='zones'):
                 path_write_file.write(re.sub(from_string, to_string, list2_))
         except FileNotFoundError:
             print('Error: No such file or directory:', os.path.join(source, i))
+        except IsADirectoryError:
+            print('Error: В файле со списком содержаться пустые строки!')
+        # except Exception as e:
+        #     print(e)
+        #     exit(1)
 
 
 def main():
