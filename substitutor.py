@@ -26,6 +26,8 @@ def re_subs(from_string, to_string, source, file_zones='zones'):
             print('Error: No such file or directory:', os.path.join(source, i))
         except IsADirectoryError:
             print('Error: В файле со списком содержаться пустые строки!')
+        except UnicodeDecodeError:
+            print('Ошибка кодировки в файле зоны: ' + path_read_file)
         # except Exception as e:
         #     print(e)
         #     exit(1)
